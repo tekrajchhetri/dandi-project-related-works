@@ -33,8 +33,8 @@ This repository contains the code to benchmark the insert and fetch (or get) ope
 - [x] Develop code to retrieve JSON-LD data from an S3 bucket
 - [x] Add fetched json-ld data to GraphDB
 - [x] Benchmark performance of insert operation
-- [ ] Develop code to retrieve data from GraphDB
-- [ ] Benchmark performance of retrieving data from GraphDB
+- [x] Develop code to retrieve data from GraphDB
+- [x] Benchmark performance of retrieving data from GraphDB
 - [ ] Transform all codes from Jupyter notebook to Python scripts and a complete end-to-end pipeline 
 
 
