@@ -18,10 +18,15 @@ This repository contains the code to benchmark the insert and fetch (or get) ope
 
 ## Insert Operation
 
-Peformance for insert operation:
+### Peformance for insert operation:
 ![](figures/insert_time/asset_performance_plot.png)
 ![](figures/insert_time/collection_performance_plot.png)
 ![](figures/insert_time/dandiset_performance_plot.png)
+
+### Peformance for fetch (or get) operation:
+![](figures/fetch_time/asset_asset_path_query.png)
+![](figures/fetch_time/asset_only_query.png)
+![](figures/fetch_time/species_age_fenotype.png)
 
 # To-Do List
 
