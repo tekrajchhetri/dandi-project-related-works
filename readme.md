@@ -31,8 +31,7 @@ This repository contains the code to benchmark the insert and fetch (or get) ope
             ?asset rdf:type dandi:Asset .
         }
     ```
-    ![](figures/fetch_time/asset_asset_path_query.png)
-
+    ![](figures/fetch_time/asset_only_query.png)
 - Test 2:
     
   ```sparql
@@ -45,8 +44,9 @@ This repository contains the code to benchmark the insert and fetch (or get) ope
            schema:encodingFormat ?format .
     }
     ```
-  
-    ![](figures/fetch_time/asset_only_query.png)
+  ![](figures/fetch_time/asset_asset_path_query.png)
+
+    
 - Test 3:
   ```sparql
         SELECT DISTINCT ?sub_id ?d ?gen ?spc ?age
