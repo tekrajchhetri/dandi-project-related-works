@@ -16,7 +16,9 @@
 # @File    : gdb_connection_manager.py
 # @Software: PyCharm
 from SPARQLWrapper import SPARQLWrapper, BASIC, GET, JSON, POST
-def _connect_gdb(connection_details, request_type="get"):
+
+
+def _connect_gdb(connection_details, request_type="get", connecting_database="GraphDB", ):
     """
     Connects to a graph database using the provided connection details.
 
@@ -28,34 +30,40 @@ def _connect_gdb(connection_details, request_type="get"):
     Returns:
     - SPARQLWrapper: An instance of SPARQLWrapper configured for the specified request type.
     """
-    print(connection_details)
-    print("*"*100)
     username = connection_details.get("username")
     password = connection_details.get("password")
     hostname = connection_details.get("hostname")
     repository = connection_details.get("repository")
 
-    if not (username and password and hostname and repository):
-        raise ValueError("Connection parameters missing.")
+    if connecting_database == "GraphDB":
+        print("Connecting to GraphDB")
 
-    if request_type == "get":
-        endpoint = f"{hostname}/repositories/{repository}"
-    elif request_type == "post":
-        endpoint = f"{hostname}/repositories/{repository}/statements"
+        if request_type == "get":
+            endpoint = f"{hostname}/repositories/{repository}"
+        elif request_type == "post":
+            endpoint = f"{hostname}/repositories/{repository}/statements"
+        else:
+            raise ValueError("Invalid request type. Use 'get' or 'post'.")
+    elif connecting_database == "Blazegraph":
+        if "bigdata/sparql" in hostname:
+            endpoint = hostname
+        else:
+            endpoint = f"{hostname}/sparql"
     else:
-        raise ValueError("Invalid request type. Use 'get' or 'post'.")
+        raise ValueError("Unsupport database.")
 
     try:
         sparql = SPARQLWrapper(endpoint)
-        sparql.setHTTPAuth(BASIC)
-        sparql.setCredentials(username, password)
+        if username and password:
+            sparql.setHTTPAuth(BASIC)
+            sparql.setCredentials(username, password)
         return sparql
     except Exception as e:
         raise ConnectionError(f"Failed to connect to the graph database: {str(e)}")
 
 def check_sparql_connection(sparql):
     try:
-        sparql.setQuery('SELECT * WHERE {?s ?p ?o} LIMIT 1')
+        sparql.setQuery('SELECT ?s ?p ?o WHERE {?s ?p ?o} LIMIT 1')
         sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         if len(results["results"]["bindings"]) > 0:
