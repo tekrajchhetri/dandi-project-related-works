@@ -34,9 +34,10 @@ def _connect_gdb(connection_details, request_type="get", connecting_database="Gr
     password = connection_details.get("password")
     hostname = connection_details.get("hostname")
     repository = connection_details.get("repository")
+    print(f"Connecting to {connecting_database}")
 
     if connecting_database == "GraphDB":
-        print("Connecting to GraphDB")
+
 
         if request_type == "get":
             endpoint = f"{hostname}/repositories/{repository}"

@@ -38,18 +38,15 @@ def validate_uploaded_file(files):
     return True
 
 
-def plot(data, title, N, nreplablel="N-repetition"):
+def plot(data, N):
     sns.set(rc={'figure.figsize': (20, 11)})
-    x = range(1, len(data) + 1)
-    y = data
+    x = range(1, len(data.keys()) + 1)
+    plt.title(f"Average Execution (Repetitions (N={N}))", fontsize=30)
+    # Width of each bar
+    bar_width = 0.45
 
-    plt.plot(x, data, marker='x', linestyle='--',label=nreplablel, color='b')
-    plt.axhline(np.mean(y), color='r', linestyle='--', label='Average')
-
-    # Adding labels and title
-    plt.xlabel(f"Repetitions (N={N})", fontsize=30)
+    plt.bar(x, list(data.values()), label=list(data.keys()),  width=bar_width)
     plt.ylabel('Execution time (Seconds)', fontsize=30)
-    plt.title(title, fontsize=30)
     plt.xticks(fontsize=15)
     plt.yticks(fontsize=15)
 
@@ -60,7 +57,7 @@ def plot(data, title, N, nreplablel="N-repetition"):
     st.pyplot()
 
 
-def _fetch_data_gdb(sparql, sparql_query, N):
+def _fetch_data_gdb(sparql, sparql_query, N, db_name):
 
     if sparql:
         execution_time_lst = []
@@ -79,7 +76,7 @@ def _fetch_data_gdb(sparql, sparql_query, N):
                 execution_time_lst.append(execution_time)
 
             # Return results and execution time
-            with open("result.json", "w") as json_file:
+            with open(db_name, "w") as json_file:
                 json.dump({"execution_time": execution_time_lst, "result": result}, json_file)
             return True
         except Exception as e:

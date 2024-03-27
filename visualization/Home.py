@@ -21,10 +21,10 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Benchmarking Me",
-    page_icon="👋",
+    page_icon="🏋️‍♂️", #
 )
 
-st.write("# Welcome to Benchmarking Me! 👋")
+st.write("# Welcome to Benchmarking Me! 👋🏋️‍♂️")
 
 
 st.markdown(
