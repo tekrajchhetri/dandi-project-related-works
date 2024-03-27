@@ -47,7 +47,8 @@ def _connect_gdb(connection_details, request_type="get", connecting_database="Gr
     elif connecting_database == "Blazegraph":
         if "bigdata/sparql" in hostname:
             endpoint = hostname
-        else:
+        elif "bigdata/" in hostname or "bigdata" in hostname:
+            hostname = hostname[:-1] if "bigdata/" in hostname else hostname
             endpoint = f"{hostname}/sparql"
     else:
         raise ValueError("Unsupport database.")
