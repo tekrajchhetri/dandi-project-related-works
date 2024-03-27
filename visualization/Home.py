@@ -36,6 +36,7 @@ st.markdown(
     - Generating Benchmark Reports (i.e., Plots) 
     ### Currently supported Graph Databases
     - GraphDB  
+    - Blazegraph
     ### Requirements
     - To benchmark the insert operations, the RDF files in Turtle format are required.
     - To benchmark the select operations, the SPARQL query is required.
